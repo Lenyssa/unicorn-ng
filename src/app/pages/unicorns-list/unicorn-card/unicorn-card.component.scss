@@ -1,0 +1,38 @@
+//.card {
+//    border: cornflowerblue solid 1px;
+//    box-shadow: 5px 2px 2px grey;
+//    height: 500px;
+//    margin-bottom: 20px;
+//    width: 300px;
+//    position: relative;
+//    overflow: hidden;
+//    img {
+//        width: 300px;
+//        object-fit: cover;
+//    }
+//
+//    button {
+//        position: absolute;
+//        bottom: 0;
+//        right:0;
+//    }
+//}
+
+.example-card {
+    max-width: 200px;
+    min-height: 500px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.example-header-image {
+    background-size: cover;
+}
+.mat-card-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+

@@ -1,0 +1,61 @@
+<!--<div class="card">-->
+<!--    <img src="" />-->
+<!--    <div>-->
+<!--        {{unicorn.name}}-->
+<!--        {{unicorn.birthyear}}-->
+<!--        {{unicorn.weight}}-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        hobbies :-->
+<!--        <ul>-->
+<!--            <li *ngFor="let hobby of unicorn.hobbies">{{hobby}}</li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        capacities:-->
+<!--        <ul>-->
+<!--            <li *ngFor="let capacity of capacitiesOfUnicorn">-->
+<!--                {{capacity.label}}-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    <mat-icon >delete</mat-icon>-->
+<!--</div>-->
+
+<mat-card class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"
+             [ngStyle]="{'background-image': 'url(' + unicorn.photo + ')' }"></div>
+        <mat-card-title>{{unicorn.name}}</mat-card-title>
+        <mat-card-subtitle>{{unicorn.birthyear}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{unicorn.photo}}" alt="Photo of {{unicorn.name}}">
+    <mat-card-content>
+        weight : {{unicorn.weight}} kg
+        hobbies :
+        <ul>
+            <li *ngFor="let hobby of unicorn.hobbies">{{hobby}}</li>
+        </ul>
+        capacities :
+        <ul>
+            <li *ngFor="let capacity of capacitiesOfUnicorn">
+                {{capacity.label}}
+            </li>
+        </ul>
+
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-mini-fab>
+            <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" (click)="deleteUnicorn()">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-mini-fab color="primary">
+            <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-mini-fab color="#7cb342">
+            <mat-icon>edit</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,12 @@
+<div>
+    <app-resume [numberOfUnicorns]="listUnicorns.length" [ageTotal]="totalAgeUnicorn"></app-resume>
+    <br/>
+    <div class="liste">
+        <app-unicorns-card
+            *ngFor="let unicorn of listUnicorns"
+            [unicorn]="unicorn"
+            [capacities]="listCapacities"
+            (removed)="removeUnicornFromList(unicorn)">
+        </app-unicorns-card>
+    </div>
+</div>
