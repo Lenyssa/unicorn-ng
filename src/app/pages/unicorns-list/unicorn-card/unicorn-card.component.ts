@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Unicorn} from '../../../shared/models/unicorn.model';
 import {Capacity} from '../../../shared/models/capacity.model';
 import {UnicornsService} from '../../../shared/services/unicorns.service';
+import {CartService} from '../../../shared/services/cart.service';
 
 @Component({
     selector: 'app-unicorns-card[unicorn]', // la balise qui a un attribut unicorn
@@ -13,30 +14,34 @@ export class UnicornCardComponent implements OnInit {
     @Input()
     public unicorn: Unicorn;
 
-    @Input()
-    private capacities: Capacity[] = [];
-
     @Output()
     private removed = new EventEmitter<void>();
 
-    public capacitiesOfUnicorn: Capacity[] = [];
+    public isInCart = false;
 
-    constructor(private unicornsService: UnicornsService) {
+    constructor(private unicornsService: UnicornsService, private cartService: CartService) {
     }
 
     ngOnInit(): void {
         // if (!this.unicorn) {
         //     throw new Error(`T'as oublié la licorne !!!`);
         // }
-        this.capacitiesOfUnicorn = this.capacities.filter((elem: Capacity) => {
-            return this.unicorn.capacities.includes(elem.id);
-        });
+        this.isInCart = this.cartService.isInCart(this.unicorn);
     }
 
     public deleteUnicorn(): void {
         this.unicornsService.delete(this.unicorn).subscribe(() => {
             this.removed.emit();
         });
+    }
+
+    public toggleToCart(): void {
+        if (this.isInCart) {
+            this.cartService.removeFromCart(this.unicorn);
+        } else {
+            this.cartService.addToCart(this.unicorn);
+        }
+        this.isInCart = !this.isInCart;
     }
 
 }

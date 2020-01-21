@@ -12,16 +12,12 @@ import {Capacity} from '../../shared/models/capacity.model';
 export class UnicornsListPageComponent implements OnInit {
 
     public listUnicorns: Unicorn[] = [];
-    public listCapacities: Capacity[] = [];
+    // public listCapacities: Capacity[] = [];
     public totalAgeUnicorn = 0;
 
     constructor(unicornsService: UnicornsService, capacitiesService: CapacitiesService) {
-        unicornsService.getAllWithCapacitiesLabels().subscribe((data: Unicorn[]) => {
+        unicornsService.getAllWithCapacitiesLabels2().subscribe((data: Unicorn[]) => {
             this.listUnicorns = data;
-        });
-
-        capacitiesService.getAll().subscribe((datas: Capacity[]) => {
-            this.listCapacities = datas;
         });
     }
 

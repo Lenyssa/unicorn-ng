@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {forkJoin, from, Observable} from 'rxjs';
+import {forkJoin, from, Observable, of} from 'rxjs';
 import {Unicorn} from '../models/unicorn.model';
 import {environment} from '../../../environments/environment';
-import {flatMap, map, mergeMap, pluck, toArray} from 'rxjs/operators';
+import {catchError, flatMap, map, mergeMap, pluck, toArray} from 'rxjs/operators';
 import {Capacity} from '../models/capacity.model';
 import {CapacitiesService} from './capacities.service';
 
@@ -18,6 +18,21 @@ export class UnicornsService {
     public getAll(): Observable<Unicorn[]> {
         return this.http.get<Unicorn[]>(`${environment.apiUrl}/unicorns`);
     }
+
+    public idAvailable(id: number): Observable<boolean> {
+        return this.http.head<void>(`${environment.apiUrl}/unicorns/${id}`).pipe(
+            map(() => false ),
+            catchError(() => of(true)),
+        );
+    }
+
+    // public getAllBad(): Unicorn[] { // il y a ils ont essayer ils ont eu des problèmes
+    //     let unicorns = [];
+    //     this.http.get<Unicorn[]>(`${environment.apiUrl}/unicorns`).subscribe(
+    //         u => unicorns = u
+    //     );
+    //     return unicorns; // toujours vide donc nope
+    // }
 
     public getAllWithCapacitiesLabels(): Observable<Unicorn[]> {
         return this.getAll().pipe(
@@ -53,6 +68,7 @@ export class UnicornsService {
             )
         );
     }
+
     public delete(unicorn: Unicorn): Observable<void> {
         // 204
         return this.http.delete<void>(`${environment.apiUrl}/unicorns/${unicorn.id}`);

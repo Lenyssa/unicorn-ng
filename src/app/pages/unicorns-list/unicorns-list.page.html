@@ -5,7 +5,6 @@
         <app-unicorns-card
             *ngFor="let unicorn of listUnicorns"
             [unicorn]="unicorn"
-            [capacities]="listCapacities"
             (removed)="removeUnicornFromList(unicorn)">
         </app-unicorns-card>
     </div>
