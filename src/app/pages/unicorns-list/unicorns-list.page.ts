@@ -16,7 +16,7 @@ export class UnicornsListPageComponent implements OnInit {
     public totalAgeUnicorn = 0;
 
     constructor(unicornsService: UnicornsService, capacitiesService: CapacitiesService) {
-        unicornsService.getAllWithCapacitiesLabels().subscribe((data: Unicorn[]) => {
+        unicornsService.getAllWithCapacitiesLabels2().subscribe((data: Unicorn[]) => {
             this.listUnicorns = data;
         });
 

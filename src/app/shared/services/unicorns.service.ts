@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {forkJoin, from, Observable} from 'rxjs';
-import {Unicorn} from '../models/unicorn.model';
-import {environment} from '../../../environments/environment';
-import {flatMap, map, mergeMap, pluck, toArray} from 'rxjs/operators';
-import {Capacity} from '../models/capacity.model';
-import {CapacitiesService} from './capacities.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { forkJoin, from, Observable, of } from 'rxjs';
+import { Unicorn } from '../models/unicorn.model';
+import { environment } from '../../../environments/environment';
+import { catchError, flatMap, map, mergeMap, pluck, toArray } from 'rxjs/operators';
+import { Capacity } from '../models/capacity.model';
+import { CapacitiesService } from './capacities.service';
 
 @Injectable({
     providedIn: 'root',
@@ -19,6 +19,13 @@ export class UnicornsService {
         return this.http.get<Unicorn[]>(`${environment.apiUrl}/unicorns`);
     }
 
+    public idAvailable(id: number): Observable<boolean> {
+        return this.http.head<void>(`${environment.apiUrl}/unicorns/${id}`).pipe(
+            map(() => false),
+            catchError(() => of(true)),
+        );
+    }
+
     public getAllWithCapacitiesLabels(): Observable<Unicorn[]> {
         return this.getAll().pipe(
             flatMap(e => e),
@@ -30,7 +37,7 @@ export class UnicornsService {
                     pluck('label'),
                     toArray(),
                     map((capacitiesLabels: string[]) => {
-                        return {...unicorn, capacitieslabels: capacitiesLabels};
+                        return { ...unicorn, capacitieslabels: capacitiesLabels };
                     }),
                 );
             }),
@@ -53,6 +60,7 @@ export class UnicornsService {
             )
         );
     }
+
     public delete(unicorn: Unicorn): Observable<void> {
         // 204
         return this.http.delete<void>(`${environment.apiUrl}/unicorns/${unicorn.id}`);

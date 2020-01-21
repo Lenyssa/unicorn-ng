@@ -1,27 +1,3 @@
-<!--<div class="card">-->
-<!--    <img src="" />-->
-<!--    <div>-->
-<!--        {{unicorn.name}}-->
-<!--        {{unicorn.birthyear}}-->
-<!--        {{unicorn.weight}}-->
-<!--    </div>-->
-<!--    <div>-->
-<!--        hobbies :-->
-<!--        <ul>-->
-<!--            <li *ngFor="let hobby of unicorn.hobbies">{{hobby}}</li>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--        capacities:-->
-<!--        <ul>-->
-<!--            <li *ngFor="let capacity of capacitiesOfUnicorn">-->
-<!--                {{capacity.label}}-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--    <mat-icon >delete</mat-icon>-->
-<!--</div>-->
-
 <mat-card class="example-card">
     <mat-card-header>
         <div mat-card-avatar class="example-header-image"
@@ -38,14 +14,13 @@
         </ul>
         capacities :
         <ul>
-            <li *ngFor="let capacity of capacitiesOfUnicorn">
-                {{capacity.label}}
+            <li *ngFor="let capacityLabel of unicorn.capacitieslabels">
+                {{capacityLabel}}
             </li>
         </ul>
-
     </mat-card-content>
     <mat-card-actions>
-        <button mat-mini-fab>
+        <button mat-mini-fab [color]="isInCart?'warn':null" (click)="toggleToCart()">
             <mat-icon>favorite</mat-icon>
         </button>
         <button mat-mini-fab color="warn" (click)="deleteUnicorn()">
