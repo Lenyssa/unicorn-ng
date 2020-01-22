@@ -21,7 +21,7 @@
       </button>
       <span>Adopte une licorne</span>
         <span class="spacer"></span>
-        <mat-spinner *ngIf="loading" [diameter]="25" color="warn"></mat-spinner>
+        <mat-spinner *ngIf="loading$ | async" [diameter]="25" color="warn"></mat-spinner>
         <mat-icon [matBadge]="cart.length" matBadgeColor="warn">favorite</mat-icon>
     </mat-toolbar>
       <ng-content></ng-content>

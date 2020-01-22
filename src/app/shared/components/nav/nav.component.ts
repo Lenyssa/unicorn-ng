@@ -14,7 +14,9 @@ import {LoaderService} from '../../services/loader.service';
 export class NavComponent {
 
     public cart: Unicorn[] = [];
-    public loading = false;
+    public loading$: Observable<boolean> = this.loaderService.pendingRequests$.pipe(
+        map((elem: number) => !!elem)
+    );
 
     isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
         .pipe(
@@ -24,7 +26,7 @@ export class NavComponent {
 
     constructor(private breakpointObserver: BreakpointObserver, private cartService: CartService, private loaderService: LoaderService) {
         this.cartService.cart.subscribe((value: Unicorn[]) => this.cart = value);
-        this.loaderService.pendingRequests.subscribe((value => this.loading = !!value));
+        // this.loaderService.pendingRequests.subscribe((value => this.loading = !!value));
     }
 
 }

@@ -3,6 +3,7 @@ import {Unicorn} from '../../shared/models/unicorn.model';
 import {UnicornsService} from '../../shared/services/unicorns.service';
 import {CapacitiesService} from '../../shared/services/capacities.service';
 import {Capacity} from '../../shared/models/capacity.model';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-unicorns-list',
@@ -12,10 +13,10 @@ import {Capacity} from '../../shared/models/capacity.model';
 export class UnicornsListPageComponent implements OnInit {
 
     public listUnicorns: Unicorn[] = [];
-    // public listCapacities: Capacity[] = [];
+    public listCapacities$: Observable<Capacity[]> = this.capacitiesService.getAll();
     public totalAgeUnicorn = 0;
 
-    constructor(unicornsService: UnicornsService, capacitiesService: CapacitiesService) {
+    constructor(unicornsService: UnicornsService, private capacitiesService: CapacitiesService) {
         unicornsService.getAllWithCapacitiesLabels2().subscribe((data: Unicorn[]) => {
             this.listUnicorns = data;
         });
