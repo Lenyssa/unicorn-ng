@@ -1,13 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Unicorn} from '../../../shared/models/unicorn.model';
-import {Capacity} from '../../../shared/models/capacity.model';
 import {UnicornsService} from '../../../shared/services/unicorns.service';
 import {CartService} from '../../../shared/services/cart.service';
 
 @Component({
     selector: 'app-unicorns-card[unicorn]', // la balise qui a un attribut unicorn
     templateUrl: './unicorn-card.component.html',
-    styleUrls: ['./unicorn-card.component.scss']
+    styleUrls: ['./unicorn-card.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush, // checker seulement quand l'input change, a ne pas faire par défault
 })
 export class UnicornCardComponent implements OnInit {
 

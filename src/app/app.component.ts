@@ -10,4 +10,7 @@ export class AppComponent {
 
     // POUR DES INFOS SUR LE CORS
     // https://developer.mozilla.org/fr/docs/Web/HTTP/CORS
+
+    // POUR LA PWA
+    // DIFICILE A DEBUGER CAR GESTION DANS LE LOCAL AJOUTER PLUTOT EN FIN DE PROJET
 }
